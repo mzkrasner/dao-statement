@@ -22,19 +22,25 @@ export const writeComposite = async (spinner) => {
   await authenticate()
   spinner.info("writing composite to Ceramic")
 
-  const profileComposite = await createComposite(
-    ceramic,
-    "./composites/basicProfile.graphql"
-  );
+  // const profileComposite = await createComposite(
+  //   ceramic,
+  //   "./composites/basicProfile.graphql"
+  // );
 
-  const messageComposite = await createComposite(
+  // const messageComposite = await createComposite(
+  //   ceramic,
+  //   "./composites/message.graphql"
+  // );
+
+  const statementComposite = await createComposite(
     ceramic,
-    "./composites/message.graphql"
+    "./composites/delStatement.graphql"
   );
 
   const composite = Composite.from([
-    profileComposite,
-    messageComposite
+    // profileComposite,
+    // messageComposite,
+    statementComposite
   ]);
   await writeEncodedComposite(composite, "./src/__generated__/definition.json");
   spinner.info('creating composite for runtime usage')

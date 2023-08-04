@@ -1,0 +1,11 @@
+# Delegate is the controller of this model
+type DelegateStatement @createModel(
+    accountRelation: LIST
+    description: "A simple DAO delegate statement model"
+  ) {
+  author: DID! @documentAccount
+  version: CommitID! @documentVersion
+  daoContractAddress: String! @string(minLength: 42, maxLength: 42)
+  intentStatement: String! @string(minLength: 25, maxLength: 100000)
+}
+

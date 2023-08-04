@@ -1,22 +1,32 @@
-# ComposeDB with LIT Protocol
+# ComposeDB Delegate Statement Starter
 
-This is a rough example using LIT Protocol to encrypt and decrypt data based on on-chain condition logic while storing on ComposeDB.
+This is a slimmed-down simple starter showing how to edit and query a DAO delegate statement.
 
 ## Getting Started
 
-Install your dependencies:
+1. Install your dependencies:
 
 ```bash
 npm install
 ```
+2. Generate an admin seed and enter it into admin_seed.txt
 
-Next, run the development server:
+3. Generate an admin did and enter it into composedb.config.json in the admin-dids array
+
+4. In your terminal, run the following to start your Postgres instance:
+
+```bash
+docker-compose up
+```
+5. Finally, run your application in a new terminal (first ensure you are running node v16 in your terminal):
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result and create a statement with a minimum statement length of 25 characters.
+
+Open [http://localhost:3000/get](http://localhost:3000/get) to query based on DAO contract address
 
 ## Learn More
 

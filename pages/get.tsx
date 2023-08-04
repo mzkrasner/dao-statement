@@ -39,42 +39,51 @@ const Home: NextPage = () => {
           }
         }
       `);
-      
       setProfile(profile?.data?.viewer?.basicProfile);
       setLoading(false);
     }
   };
 
-
-  const createStatement = async () => {
-    setLoading(true);
-    if (ceramic.did && contract && statement) {  
+  const getStatement = async () => {
+    if (ceramic.did && contract) {
       const query = await composeClient.executeQuery(`
-        mutation {
-          createDelegateStatement(input: {
-            content: {
-              daoContractAddress: "${contract}"
-              intentStatement: "${statement}"
-            }
-          }) 
-          {
-            document {
-              id
-              daoContractAddress
-              intentStatement
-              version
-              author{
-                id
+      query {
+        node(id: "${address}") {
+            ... on CeramicAccount {
+            id
+            delegateStatementList(first: 100) {
+                edges {
+                node {
+                    id
+                    daoContractAddress
+                    intentStatement
+                    version
+                    author{
+                      id
+                    }
+                }
               }
             }
-          }
+          } 
         }
+      } 
       `);
-      console.log(query);
-      await getProfile();
-      setLoading(false);
+      console.log(query)
+      const results = query.data?.node?.delegateStatementList.edges;
+      results.forEach(item => {
+        console.log(item.node)
+        if(item.node.daoContractAddress === contract){
+            console.log(item.node.intentStatement)
+            setStatement(item.node.intentStatement)
+            console.log(statement)
+            return statement
+        }
+      })
+      return results;
     }
+    return undefined;
   };
+
 
   /**
    * On load check if there is a DID-Session in local storage.
@@ -119,7 +128,7 @@ const Home: NextPage = () => {
                 />
               </div>
               <div className={styles.formGroup}>
-                <label>DAO Delegate Statement</label>
+                <label>Statement Result:</label>
                 <textarea
                   style={{"height": "10rem", "width": "50rem", "padding": "1rem"}}
                   value={statement}
@@ -130,10 +139,10 @@ const Home: NextPage = () => {
               </div>
               <button
                 onClick={() => {
-                  createStatement();
+                  getStatement();
                 }}
               >
-                {loading ? "Loading..." : "Create statement"}
+                {loading ? "Loading..." : "Get statement"}
               </button>
             </div>
           </>
