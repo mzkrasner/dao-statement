@@ -1,2 +1,0 @@
-// This is an auto-generated file, do not edit manually
-export const definition = {"models":{"DelegateStatement":{"id":"kjzl6hvfrbw6ca9h7y0rggmvmmesclj0913br9l2klrtz1yu3wttwsmbct47s2a","accountRelation":{"type":"list"}}},"objects":{"DelegateStatement":{"intentStatement":{"type":"string","required":true},"daoContractAddress":{"type":"string","required":true},"author":{"type":"view","viewType":"documentAccount"},"version":{"type":"view","viewType":"documentVersion"}}},"enums":{},"accountData":{"delegateStatementList":{"type":"connection","name":"DelegateStatement"}}}
